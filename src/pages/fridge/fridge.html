@@ -41,14 +41,14 @@
     </tbody>
   </table> -->
   <ion-list>
-    <button ion-button color="secondary">Toggle Menu</button>
+    <button ion-button color="secondary"><ion-icon name="add-circle"></ion-icon> Ajouter un ingredient</button>
     <button ion-item *ngFor="let ingredient of ingredientList" (click)="prepareForEditIngredient(ingredient)">
       <!-- <ion-icon [name]="item.icon" item-start></ion-icon> -->
       <h4>{{ingredient.name}}</h4>
       <h4 [ngClass]="{'red': comparePeremptionDate(ingredient.peremptionDate)}">{{ingredient.quantity}}
         <span [ngClass]="{'red': comparePeremptionDate(ingredient.peremptionDate)}">{{ingredient.unity | uppercase}}</span>
       </h4>
-      <h4 [ngClass]="{'red': comparePeremptionDate(ingredient.peremptionDate)}">{{ingredient.peremptionDate | date: 'dd/MM/yyyy'}}</h4>
+      <h4 [ngClass]="{'red': comparePeremptionDate(ingredient.peremptionDate)}"><ion-icon name="warning" *ngIf="comparePeremptionDate(ingredient.peremptionDate)"></ion-icon>{{ingredient.peremptionDate | date: 'dd/MM/yyyy'}}<ion-icon name="warning" *ngIf="comparePeremptionDate(ingredient.peremptionDate)"></ion-icon></h4>
     </button>
   </ion-list>
 </ion-content>
