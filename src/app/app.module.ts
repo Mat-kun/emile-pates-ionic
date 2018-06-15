@@ -20,7 +20,6 @@ import { RecipeService } from '../services/implementations/recipe.service';
 import { FakeRecipeService } from '../services/implementations/fake-recipe.service';
 import { ShoppingListService } from '../services/implementations/shopping-list.service';
 import { FakeShoppingListService } from '../services/implementations/fake-shopping-list.service';
-import { EditIngredientPageModule } from '../pages/edit-ingredient/edit-ingredient.module';
 
 @NgModule({
   declarations: [
@@ -32,7 +31,6 @@ import { EditIngredientPageModule } from '../pages/edit-ingredient/edit-ingredie
     RecipePageModule,
     PlanningPageModule,
     ShoppingListPageModule,
-    EditIngredientPageModule,
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
