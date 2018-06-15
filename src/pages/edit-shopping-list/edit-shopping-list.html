@@ -7,38 +7,43 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{shoppingListToEdit.name}}</ion-title>
+    <ion-title>{{pageName}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-    <div *ngIf="shoppingListToEdit">
-        <div (click)="addIngredient()" class="action"><i class="glyphicon glyphicon-plus"></i>Ajouter un nouvel ingredient</div>
-        <input type="text" class="form-control" [(ngModel)]="shoppingListToEdit.name"/>
-        <table class="table table-striped">
-            <thead>
-              <tr>
-                <td></td>
-                <th>Ingredients</th>
-                <th>Quantité</th>
-                <th>Unité</th>
-                <td></td>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let ingredient of this.shoppingListToEdit.ingredientList">
-                <td>
-                    <input type="checkbox" class="custom-control-input" (change)="selectIngredient($event, ingredient)">
-                </td>
-                <td>{{ingredient.name}}</td>
-                <td>{{ingredient.quantity}}</td>
-                <td>{{ingredient.unity | uppercase}}</td>
-                <td (click)="deleteIngredient(ingredient)"><i class="glyphicon glyphicon-trash"></i></td>
-              </tr>
-            </tbody>
-            <button class="btn btn-primary" data-toggle="modal" data-target="#confirmModal" (click)="validate()">Valider</button>
-          </table>
-    </div>
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngIf="shoppingListToEdit" col-12>
+        <ion-row>
+          <button ion-button color="secondary" (click)="addIngredient()">
+            <ion-icon name="add-circle"></ion-icon> Ajouter un nouvel ingredient</button>
+        </ion-row>
+        <ion-row>
+          <form>
+            <ion-item>
+              <ion-label>Nom :</ion-label>
+              <ion-input type="text" class="form-control" [(ngModel)]="shoppingListToEdit.name" [ngModelOptions]="{standalone: true}" placeholder="nom de l'ingredient"></ion-input>
+            </ion-item>
+          </form>
+        </ion-row>
+        <ion-row>
+          <ion-list>
+            <ion-row ion-item *ngFor="let ingredient of this.shoppingListToEdit.ingredientList" (click)="$event.preventDefault();">
+              <ion-checkbox item-start type="checkbox" class="custom-control-input" (ionChange)="selectIngredient($event, ingredient)"></ion-checkbox>
+              <ion-label>{{ingredient.name}} {{ingredient.quantity}} {{ingredient.unity | uppercase}}</ion-label>
+              <button item-end ion-button clear small color="danger" (click)="deleteIngredient(ingredient)">
+                <ion-icon name='remove-circle'></ion-icon>
+              </button>
+            </ion-row>
+          </ion-list>
+        </ion-row>
+        <ion-row>
+          <button ion-button color="secondary" (click)="validate()">Valider</button>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

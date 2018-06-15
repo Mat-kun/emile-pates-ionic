@@ -48,7 +48,6 @@ export class EditIngredientPage implements OnInit {
   }
 
   register(){
-    console.log(this.shoppingListId);
     if (this.shoppingListId === -1){
       if(this.editionMode){
         this.fridgeService.editIngredient(this.ingredientToEdit);          

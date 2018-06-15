@@ -61,7 +61,7 @@ export class ShoppingListPage implements OnInit{
         {
           text: 'Non',
           handler: () => {
-            console.log('Disagree clicked');
+            //console.log('Disagree clicked');
           }
         },
         {
