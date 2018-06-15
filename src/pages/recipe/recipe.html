@@ -17,8 +17,8 @@
 
 
 <ion-content padding>
-  <button ion-button color="secondary">
-    <ion-icon name='remove-circle'></ion-icon>
+  <button ion-button color="secondary" (click)="prepareForAddRecipe()">
+    <ion-icon name='add-circle'></ion-icon>
     Ajouter une recette
   </button>
   <ion-card *ngFor="let recipe of recipesList">
@@ -28,7 +28,7 @@
       <ion-row no-padding>
         <div class="cardActions">
           <ion-col>
-            <button (click)="removeRecipe(recipe)" ion-button clear small icon-start>
+            <button (click)="prepareForEditRecipe(recipe)" ion-button clear small icon-start>
               <ion-icon name='create'></ion-icon>
               Éditer
             </button>
@@ -60,9 +60,9 @@
       </ion-row>
       <ion-row no-padding>
         <div class="cardActions">
-          <button (click)="removeRecipe(recipe)" ion-button clear small color="danger" icon-start>
-            <ion-icon name='remove-circle'></ion-icon>
-            Supprimer
+          <button (click)="realizeRecipe(recipe)" ion-button clear small color="danger" icon-start [ngClass]="{'disabled': !canRealizeRecipe(recipe)}" [disabled]="!canRealizeRecipe(recipe)">
+            <ion-icon name='pizza'></ion-icon>
+            Faire la cuisine !
           </button>
         </div>
       </ion-row>

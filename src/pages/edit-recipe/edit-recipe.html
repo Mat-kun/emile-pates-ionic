@@ -1,0 +1,64 @@
+<!--
+  Generated template for the EditRecipePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>editRecipe</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12>
+        <form>
+          <ion-item>
+            <ion-label>Nom :</ion-label>
+            <ion-input type="text" id="recipeName" [(ngModel)]="recipeToEdit.name" name="recipeName"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Description</ion-label>
+            <ion-textarea id="description" [(ngModel)]="recipeToEdit.description" name="recipeDescription"></ion-textarea>
+          </ion-item>
+          <ion-item>
+            <ion-label>Url De l'image</ion-label>
+            <ion-textarea id="imgPath" [(ngModel)]="recipeToEdit.imgPath" name="recipeImgPath"></ion-textarea>
+          </ion-item>
+          <h4 (click)="addNewIngredient()">
+            <i>
+              <ion-icon name="add-circle"></ion-icon>
+            </i> Ajouter un ingredient</h4>
+          <ion-list>
+            <div *ngFor="let ingredient of recipeToEdit.ingredientList; let index = index">
+              <fieldset style="margin-bottom: 5px;">
+                  <ion-item>
+                      <ion-label>Nom :</ion-label>
+                      <ion-input type="text" [(ngModel)]="ingredient.name" [name]="'ingredientName' + index" placeholder="nom de l'ingredient"></ion-input>
+                  </ion-item>
+                  <ion-item>
+                      <ion-label>Quantité</ion-label>
+                      <ion-input [(ngModel)]="ingredient.quantity" [name]="'quantity'  + index" placeholder="quantité de l'ingredient"></ion-input>
+                  </ion-item>
+                  <ion-item>
+                      <ion-label>Unité</ion-label>
+                      <ion-input [(ngModel)]="ingredient.unity" [name]="'unity' + index" placeholder="unité de la quantité"></ion-input>
+                  </ion-item>
+              </fieldset>
+              </div>
+          </ion-list>
+          <ion-col col-3 offset-2>
+            <button padding ion-button color="light" type="button" (click)="cancel()">Annuler</button>
+            <button padding ion-button type="button" (click)="register(recipeToEdit)">Enregistrer</button>
+          </ion-col>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

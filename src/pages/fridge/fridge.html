@@ -17,33 +17,9 @@
 
 
 <ion-content padding>
-  <!-- <button class="btn btn-primary" (click)='prepareForAddIngredient()'>Ajouter un ingredient</button>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Ingredients</th>
-        <th>Quantité</th>
-        <th>Unité</th>
-        <th>Date de peremption</th>
-        <th>Editer</th>
-        <th>Supprimer</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let ingredient of ingredientList">
-        <td [ngClass]="{'red': comparePeremptionDate(ingredient.peremptionDate)}">{{ingredient.name}}</td>
-        <td [ngClass]="{'red': comparePeremptionDate(ingredient.peremptionDate)}">{{ingredient.quantity}}</td>
-        <td [ngClass]="{'red': comparePeremptionDate(ingredient.peremptionDate)}">{{ingredient.unity | uppercase}}</td>
-        <td [ngClass]="{'red': comparePeremptionDate(ingredient.peremptionDate)}"><i *ngIf="comparePeremptionDate(ingredient.peremptionDate)" class="glyphicon glyphicon-warning-sign"></i>{{ingredient.peremptionDate | date: 'dd/MM/yyyy'}}<i *ngIf="comparePeremptionDate(ingredient.peremptionDate)" class="glyphicon glyphicon-warning-sign"></i></td>
-        <td><i class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#editOrAddModal" (click)='prepareForEditIngredient(ingredient)'></i></td>
-        <td><i class="glyphicon glyphicon-trash" (click)='removeIngredient(ingredient)'></i></td>
-      </tr>
-    </tbody>
-  </table> -->
   <ion-list>
-    <button ion-button color="secondary"><ion-icon name="add-circle"></ion-icon> Ajouter un ingredient</button>
+    <button ion-button color="secondary" (click)="prepareForAddIngredient()"><ion-icon name="add-circle"></ion-icon> Ajouter un ingredient</button>
     <button ion-item *ngFor="let ingredient of ingredientList" (click)="prepareForEditIngredient(ingredient)">
-      <!-- <ion-icon [name]="item.icon" item-start></ion-icon> -->
       <h4>{{ingredient.name}}</h4>
       <h4 [ngClass]="{'red': comparePeremptionDate(ingredient.peremptionDate)}">{{ingredient.quantity}}
         <span [ngClass]="{'red': comparePeremptionDate(ingredient.peremptionDate)}">{{ingredient.unity | uppercase}}</span>

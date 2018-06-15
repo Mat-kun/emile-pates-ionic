@@ -55,7 +55,7 @@ export class FridgePage implements OnInit {
 
   prepareForAddIngredient(): void {
     this.ingredientToEdit = {id: 0, name: '', quantity: 0, unity: '', peremptionDate: new Date()};
-    this.creationMode = true;
+    this.navCtrl.push(EditIngredientPage, {ingredient:this.ingredientToEdit, type:"add"});
   }
 
   // permet de savoir si un ingredient est périmé

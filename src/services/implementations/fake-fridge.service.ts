@@ -14,12 +14,6 @@ export class FakeFridgeService implements IFridgeService {
   addIngredient(ingredient: Ingredient): void {
     ingredient.id = this.newId;
     let find = false;
-    for (let i = 0; i < this.ingredientsList.length; i++) {
-      if ( ingredient.name.toLowerCase() === this.ingredientsList[i].name) {
-        this.ingredientsList[i].quantity = ingredient.quantity + this.ingredientsList[i].quantity;
-        find = true;
-      }
-    }
     if (!find) {
       this.ingredientsList.push(ingredient);
     }
@@ -31,7 +25,10 @@ export class FakeFridgeService implements IFridgeService {
   }
 
   editIngredient(ingredient: Ingredient): void {
+    console.log("ingredient before edition", this.ingredientsList[this.ingredientsList.indexOf(this.getIngredientById(ingredient.id))]);
+    console.log("ingredient current", ingredient);
     this.ingredientsList[this.ingredientsList.indexOf(this.getIngredientById(ingredient.id))] = ingredient;
+    console.log("ingredient after edition", this.ingredientsList[this.ingredientsList.indexOf(this.getIngredientById(ingredient.id))]);
   }
 
   getIngredientById(id: number): Ingredient {
@@ -45,9 +42,9 @@ export class FakeFridgeService implements IFridgeService {
   }
 
   constructor() {
-    const d = new Date('January 01, 2017');
-    const d2 = new Date('February 02, 2018');
-    const d3 = new Date('December 24, 2017');
+    const d = new Date('January 01, 2018');
+    const d2 = new Date('February 02, 2019');
+    const d3 = new Date('December 24, 2018');
     const beurre: Ingredient = {id: 0, name: 'oeufs', quantity: 2, unity: 'number', peremptionDate: d2};
     const pates: Ingredient = {id: 1, name: 'pates', quantity: 500, unity: 'g', peremptionDate: d2};
     const creme: Ingredient = {id: 2, name: 'creme fraiche', quantity: 25, unity: 'cl', peremptionDate: d2};
