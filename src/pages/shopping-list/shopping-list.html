@@ -17,7 +17,7 @@
 
 
 <ion-content padding>
-    <!-- <ul class="list-group">
+  <!-- <ul class="list-group">
         <li class="list-group-item" *ngFor="let shoppingList of this.myShoppingsList" (click)="prepareForEditShoppingList(shoppingList)">{{shoppingList.name}} <i (click)="prepareForEditShoppingList(shoppingList)" class="glyphicon glyphicon-pencil action"></i><i class="glyphicon glyphicon-trash action" (click)="deleteShoppingList(shoppingList)"></i></li>
       </ul>
       <div *ngIf="shoppingListToEdit">
@@ -48,9 +48,9 @@
               <button class="btn btn-primary" data-toggle="modal" data-target="#confirmModal" (click)="showValidation()">Valider</button>
             </table>
       </div> -->
-      <ion-list>
-            <button ion-item *ngFor="let shoppingList of this.myShoppingsList" (click)="prepareForEditShoppingList(shoppingList);" (swipe)="deleteShoppingList(shoppingList);">
-                {{shoppingList.name}}
-          </button>
-        </ion-list>
+  <ion-list>
+    <button ion-item *ngFor="let shoppingList of this.myShoppingsList" (click)="prepareForEditShoppingList(shoppingList);" (swipe)="deleteShoppingList(shoppingList);">
+      {{shoppingList.name}}
+    </button>
+  </ion-list>
 </ion-content>

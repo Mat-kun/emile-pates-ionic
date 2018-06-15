@@ -17,5 +17,10 @@
 
 
 <ion-content padding>
-
+    <button ion-button color="secondary"><ion-icon name="add-circle"></ion-icon> Ajouter un planning</button>
+  <ion-list>
+    <button ion-item *ngFor="let planning of this.planningList" (click)="prepareForEditPlanning(planning)">
+      {{planning.name}}
+    </button>
+  </ion-list>
 </ion-content>

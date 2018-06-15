@@ -46,7 +46,7 @@ export class EditIngredientPage implements OnInit {
   }
 
   cancel(){
-    this.navCtrl.push(FridgePage);
+    this.navCtrl.pop();
   }
 
 }
