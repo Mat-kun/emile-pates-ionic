@@ -37,13 +37,13 @@
                   <ion-item>
                       <ion-label>Midi :</ion-label>
                       <ion-select [(ngModel)]="meal.lunch" name="lunch">
-                          <ion-option *ngFor="let recipe of recipesList" value="recipe">{{recipe.name}}</ion-option>
+                          <ion-option *ngFor="let recipe of recipesList" [value]="recipe">{{recipe.name}}</ion-option>
                         </ion-select>
                   </ion-item>
                   <ion-item>
                       <ion-label>Soir :</ion-label>
                       <ion-select [(ngModel)]="meal.dinner" name="dinner">
-                          <ion-option *ngFor="let recipe of recipesList" value="recipe">{{recipe.name}}</ion-option>
+                          <ion-option *ngFor="let recipe of recipesList" [value]="recipe">{{recipe.name}}</ion-option>
                         </ion-select>
                   </ion-item>
               </div>
