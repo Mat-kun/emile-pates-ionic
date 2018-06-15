@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { RecipeService } from '../../services/implementations/recipe.service';
 import { PlanningService } from '../../services/implementations/planning.service';
@@ -7,6 +7,7 @@ import { Recipe } from '../../models/recipe';
 import { Planning, Day } from '../../models/planning';
 import { Ingredient } from '../../models/ingredient';
 import { ShoppingList } from '../../models/shopping-list';
+import { EditPlanningPage } from '../edit-planning/edit-planning';
 
 /**
  * Generated class for the PlanningPage page.
@@ -20,7 +21,7 @@ import { ShoppingList } from '../../models/shopping-list';
   selector: 'page-planning',
   templateUrl: 'planning.html',
 })
-export class PlanningPage {
+export class PlanningPage implements OnInit {
   recipesList: Recipe[];
   planningList: Planning[];
   newPlanning: Planning;
@@ -30,12 +31,12 @@ export class PlanningPage {
   constructor(private recipeService: RecipeService,
     private planningService: PlanningService,
     private shoppingListService: ShoppingListService,
+    public navCtrl: NavController,
+    public navParams: NavParams, 
   ) { }
 
   ngOnInit() {
     this.editing = false;
-    this.initPlanning();
-    this.getRecipes();
     this.getPlanning();
   }
 
@@ -57,95 +58,21 @@ export class PlanningPage {
     return this.newPlanning;
   }
 
-  getRecipes(): Recipe[] {
-    this.recipesList = this.recipeService.getAllRecipes();
-    return this.recipesList;
-  }
-
-  registerPlanning(planning: Planning): void {
-    this.planningService.addPlanning(planning);
-    this.initPlanning();
-    this.getPlanning();
-  }
-
   getPlanning(): Planning[] {
     this.planningList = this.planningService.getAllPlannings();
     return this.planningList;
   }
 
   prepareForEditPlanning(planning: Planning): void {
-    this.editing = true;
-    this.newPlanning = planning;
+    this.navCtrl.push(EditPlanningPage, {planning: planning, type: 'edit'});
   }
 
-  editPlanning(planning: Planning): void {
-    this.planningService.editPlanning(planning);
-    this.editing = false;
+  prepareForAddPlanning(): void {
     this.initPlanning();
+    this.navCtrl.push(EditPlanningPage, {planning: this.newPlanning, type: 'add'});
   }
 
-  // creer la liste de courses du planning selectionné
-  setShoppingList(planning: Planning): void {
-    let planningIngredients: Ingredient[] = [];
-    const shoppingListIngredients: Ingredient[] = [];
-    let shoppingList: ShoppingList;
-    shoppingList = { id: 0, name: 'Ma liste de courses de la semaine "' + planning.name + '"', ingredientList: [] };
-
-    //console.log("planning:", planning);
-    // une liste d'ingredients est créée en ajoutant tout les ingredients des recettes de chaque repas de chaque jours
-    for (let i = 0; i < planning.meals.length; i++) {
-      const meal = planning.meals[i];
-
-      if (meal.breakfast != null) {
-        planningIngredients.push(...meal.breakfast.ingredientList);
-      }
-      if (meal.lunch != null) {
-        planningIngredients.push(...meal.lunch.ingredientList);
-      }
-      if (meal.dinner != null) {
-        planningIngredients.push(...meal.dinner.ingredientList);
-      }
-    }
-    let found: boolean;
-
-    // console.log('Ingrédients dans le planning (doublons non-exclus):', planningIngredients);
-
-    // double boucle parcourant la liste d'ingredients afin d'eviter d'avoir des doublons et plutot mettre a jours les quantités d'ingredients
-    for (let i = 0; i < planningIngredients.length; i++) {
-      found = false;
-      const planningIngredient = { ...planningIngredients[i] };
-
-      if (shoppingListIngredients.length > 0) {
-        for (let j = 0; j < shoppingListIngredients.length; j++) {
-          const shoppingListIngredient = shoppingListIngredients[j];
-          // console.log('Traitement de', shoppingListIngredient);
-
-          if (shoppingListIngredient.name.toLowerCase() === planningIngredient.name.toLowerCase()) {
-            // console.log('Ajout de', shoppingListIngredient.quantity, 'de', shoppingListIngredient.name);
-            shoppingListIngredient.quantity += planningIngredient.quantity;
-            found = true;
-
-            shoppingListIngredients[j] = shoppingListIngredient;
-
-            break;
-          }
-        }
-
-        if (!found) {
-          // console.log('Ajout de', planningIngredient.quantity, 'de', planningIngredient.name);
-          shoppingListIngredients.push(planningIngredient);
-        }
-      } else {
-        // console.log('Ajout de', planningIngredient.quantity, 'de', planningIngredient.name);
-        shoppingListIngredients.push(planningIngredient);
-      }
-    }
-
-    // console.log(shoppingListIngredients);
-    shoppingList.ingredientList = shoppingListIngredients;
-    // une fois l'operation effectué on peut ajouter a la liste de courses notre liste d'ingredients.
-    this.shoppingListService.addShoppingList(shoppingList);
-    this.initPlanning();
-    //this.router.navigate(['/shopping-list']);
+  deletePlanning(planning: Planning): void{
+    this.planningService.removePlanning(planning);
   }
 }

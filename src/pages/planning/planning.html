@@ -17,10 +17,10 @@
 
 
 <ion-content padding>
-    <button ion-button color="secondary"><ion-icon name="add-circle"></ion-icon> Ajouter un planning</button>
+    <button ion-button color="secondary" (click)="prepareForAddPlanning()"><ion-icon name="add-circle"></ion-icon> Ajouter un planning</button>
   <ion-list>
     <button ion-item *ngFor="let planning of this.planningList" (click)="prepareForEditPlanning(planning)">
-      {{planning.name}}
+      {{planning.name}} <i (click)="deletePlanning(planning)"><ion-icon name="trash"></ion-icon></i>
     </button>
   </ion-list>
 </ion-content>
