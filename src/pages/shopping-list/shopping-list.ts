@@ -7,6 +7,7 @@ import { ShoppingListService } from '../../services/implementations/shopping-lis
 
 import { ShoppingList } from '../../models/shopping-list';
 import { Ingredient } from '../../models/Ingredient';
+import { EditShoppingListPage } from '../edit-shopping-list/edit-shopping-list';
 
 
 
@@ -33,12 +34,7 @@ export class ShoppingListPage implements OnInit{
     public alertController: AlertController,
   ) {
   }
-
-  shoppingListToEdit: ShoppingList;
   myShoppingsList: ShoppingList[];
-  ingredientsToAdd: Ingredient[];
-
-  newIngredient: Ingredient;
 
   // @ViewChild('confirmModal')
   // confirmModal: ModalDirective;
@@ -46,48 +42,15 @@ export class ShoppingListPage implements OnInit{
   // addIngredientModal: ModalDirective;
 
   ngOnInit() {
-    this.shoppingListToEdit = null;
     this.getMyShoppingList();
-    const d = new Date();
-    d.setDate(d.getDate() + 14);
-    this.newIngredient = {id: 0, name: '', quantity: 0, unity: '', peremptionDate: d};
   }
 
   getMyShoppingList(): void {
     this.myShoppingsList = this.shoppingListService.getShoppingList();
   }
 
-  prepareForEditShoppingList(shopping: ShoppingList): void {
-    this.ingredientsToAdd = [];
-    this.shoppingListToEdit = shopping;
-  }
-
-  selectIngredient(e, ingredient) {
-    if (e.target.checked) {
-      this.ingredientsToAdd.push(ingredient);
-    }else {
-      this.ingredientsToAdd.splice(this.ingredientsToAdd.indexOf(ingredient), 1);
-    }
-  }
-
-  prepareForAddIngredient(): void {
-    const d = new Date();
-    d.setDate(d.getDate() + 14);
-    this.newIngredient = {id: 0, name: '', quantity: 0, unity: '', peremptionDate: d};
-    // this.addIngredientModal.show();
-  }
-
-  addIngredient(ingredient: Ingredient): void {
-    this.shoppingListToEdit.ingredientList.push(ingredient);
-    // this.addIngredientModal.hide();
-  }
-
-  deleteIngredient(ingredient: Ingredient): void {
-    this.shoppingListToEdit.ingredientList.splice(this.shoppingListToEdit.ingredientList.indexOf(ingredient), 1);
-  }
-
-  showValidation() {
-    // this.confirmModal.show();
+  editShoppingList(shopping: ShoppingList): void {
+    this.navCtrl.push(EditShoppingListPage, { shoppingListToEdit: shopping, type: "edit" });
   }
 
   deleteShoppingList(shoppingList: ShoppingList): void {
@@ -105,39 +68,10 @@ export class ShoppingListPage implements OnInit{
           text: 'Oui',
           handler: () => {
             this.shoppingListService.removeShoppingList(shoppingList);
-            if (this.shoppingListToEdit){
-              if (shoppingList.id === this.shoppingListToEdit.id) {
-                this.shoppingListToEdit = null;
-              }
-            }
-            // this.confirmModal.hide();
           }
         }
       ]
     });
     confirm.present();
   }
-  addIngredientsToFridge(): void {
-    for (let i = 0; i < this.ingredientsToAdd.length; i++) {
-      this.fridgeService.addIngredient(this.ingredientsToAdd[i]);
-      this.shoppingListToEdit.ingredientList.splice(this.shoppingListToEdit.ingredientList.indexOf(this.ingredientsToAdd[i]), 1);
-    }
-    // this.confirmModal.hide();
-  }
-
-  addAllIngredientsToFridge(): void {
-    for (let i = 0; i < this.shoppingListToEdit.ingredientList.length; i++) {
-      this.fridgeService.addIngredient(this.shoppingListToEdit.ingredientList[i]);
-    }
-    this.shoppingListService.removeShoppingList(this.shoppingListToEdit);
-    this.shoppingListToEdit = null;
-    // this.confirmModal.hide();
-  }
-
-  // Pour edition dans le cas d'ajout d'une BDD
-  editShoppingList(shoppingList: ShoppingList): void {
-    this.shoppingListService.editShoppingList(shoppingList);
-    // this.confirmModal.hide();
-  }
-
 }

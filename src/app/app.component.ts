@@ -25,8 +25,8 @@ export class MyApp {
     this.pages = [
       { title: 'Mon Frigo', component: FridgePage },
       { title: 'Mes Recettes', component: RecipePage },
-      { title: 'Ma liste de courses', component: ShoppingListPage },
-      { title: 'Mon Planning', component: PlanningPage }
+      { title: 'Mes listes de courses', component: ShoppingListPage },
+      { title: 'Mes Plannings', component: PlanningPage }
       
     ];
 
