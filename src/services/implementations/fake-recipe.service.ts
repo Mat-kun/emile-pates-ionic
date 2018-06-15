@@ -55,8 +55,8 @@ export class FakeRecipeService implements IRecipeService {
     const sucreVanille: Ingredient = {id: 11, name: 'Sucre Vanillé', quantity: 1, unity: 'number', peremptionDate: d};
 
     // Image Path
-    const carboJpg = '../../../assets/images/carbo.jpeg';
-    const gateauJpg = '../../../assets/images/gateau.jpg';
+    const carboJpg = '../../../assets/imgs/carbo.jpeg';
+    const gateauJpg = '../../../assets/imgs/gateau.jpg';
 
     // description
     // tslint:disable-next-line:max-line-length

@@ -17,5 +17,55 @@
 
 
 <ion-content padding>
+  <button ion-button color="secondary">
+    <ion-icon name='remove-circle'></ion-icon>
+    Ajouter une recette
+  </button>
+  <ion-card *ngFor="let recipe of recipesList">
 
+    <img class="" src={{recipe.imgPath}} alt="Card image cap">
+    <ion-card-content>
+      <ion-row no-padding>
+        <div class="cardActions">
+          <ion-col>
+            <button (click)="removeRecipe(recipe)" ion-button clear small icon-start>
+              <ion-icon name='create'></ion-icon>
+              Éditer
+            </button>
+          </ion-col>
+          <ion-col>
+            <button (click)="removeRecipe(recipe)" ion-button clear small color="danger" icon-start>
+              <ion-icon name='remove'></ion-icon>
+              Supprimer
+            </button>
+          </ion-col>
+        </div>
+      </ion-row>
+      <ion-card-title>
+        {{recipe.name}}
+      </ion-card-title>
+      <p>
+        {{recipe.description}}
+      </p>
+      <ion-row>
+        <h4>Ingredients</h4>
+      </ion-row>
+      <ion-row no-padding>
+        <ul class="list-group list-group-flush">
+          <li *ngFor="let ingredient of recipe.ingredientList" class="list-group-item">
+            <div *ngIf="(ingredient.unity | uppercase) != 'NUMBER'" [ngClass]="{'red': !isIngredientAvailaible(ingredient)}">{{ingredient.name}} {{ingredient.quantity}} {{ingredient.unity | uppercase}}</div>
+            <div *ngIf="(ingredient.unity | uppercase) == 'NUMBER'" [ngClass]="{'red': !isIngredientAvailaible(ingredient)}">{{ingredient.quantity}} {{ingredient.name}}</div>
+          </li>
+        </ul>
+      </ion-row>
+      <ion-row no-padding>
+        <div class="cardActions">
+          <button (click)="removeRecipe(recipe)" ion-button clear small color="danger" icon-start>
+            <ion-icon name='remove-circle'></ion-icon>
+            Supprimer
+          </button>
+        </div>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

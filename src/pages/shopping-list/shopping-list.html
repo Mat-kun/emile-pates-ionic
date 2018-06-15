@@ -49,7 +49,8 @@
             </table>
       </div> -->
       <ion-list>
-            <button ion-item *ngFor="let shoppingList of this.myShoppingsList" (click)="prepareForEditShoppingList(shoppingList)">
+            <button ion-item *ngFor="let shoppingList of this.myShoppingsList" (click)="prepareForEditShoppingList(shoppingList);" (swipe)="deleteShoppingList(shoppingList);">
+                {{shoppingList.name}}
           </button>
         </ion-list>
 </ion-content>

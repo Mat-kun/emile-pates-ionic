@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 
 import { IngredientService } from '../../services/implementations/ingredient.service';
 import { FridgeService } from '../../services/implementations/fridge.service';
@@ -24,9 +24,14 @@ import { Ingredient } from '../../models/Ingredient';
 })
 export class ShoppingListPage implements OnInit{
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public ingredientService: IngredientService,
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public ingredientService: IngredientService,
     public fridgeService: FridgeService,
-    public shoppingListService: ShoppingListService) {
+    public shoppingListService: ShoppingListService,
+    public alertController: AlertController,
+  ) {
   }
 
   shoppingListToEdit: ShoppingList;
@@ -86,11 +91,31 @@ export class ShoppingListPage implements OnInit{
   }
 
   deleteShoppingList(shoppingList: ShoppingList): void {
-    this.shoppingListService.removeShoppingList(shoppingList);
-    if (shoppingList.id === this.shoppingListToEdit.id) {
-      this.shoppingListToEdit = null;
-    }
-    // this.confirmModal.hide();
+    const confirm = this.alertController.create({
+      title: 'Confirmation',
+      message: 'Voulez-vous vraiment supprimer cette liste ?',
+      buttons: [
+        {
+          text: 'Non',
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: 'Oui',
+          handler: () => {
+            this.shoppingListService.removeShoppingList(shoppingList);
+            if (this.shoppingListToEdit){
+              if (shoppingList.id === this.shoppingListToEdit.id) {
+                this.shoppingListToEdit = null;
+              }
+            }
+            // this.confirmModal.hide();
+          }
+        }
+      ]
+    });
+    confirm.present();
   }
   addIngredientsToFridge(): void {
     for (let i = 0; i < this.ingredientsToAdd.length; i++) {
