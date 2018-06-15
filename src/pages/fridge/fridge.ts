@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FridgeService } from '../../services/implementations/fridge.service';
 import {Ingredient} from '../../models/ingredient';
+import { EditIngredientPage } from '../edit-ingredient/edit-ingredient';
 
 /**
  * Generated class for the FridgePage page.
@@ -30,15 +31,9 @@ export class FridgePage implements OnInit {
   creationMode: boolean;
   editionMode: boolean;
 
-  // @ViewChild('editOrAddModal')
-  // editOrAddModal: ModalDirective;
-
   constructor(public navCtrl: NavController, public navParams: NavParams, public fridgeService: FridgeService) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad FridgePage');
-  }
   ngOnInit() {
     this.getIngredients();
     this.creationMode = false;
@@ -46,16 +41,7 @@ export class FridgePage implements OnInit {
   }
 
   prepareForEditIngredient(ingredient: Ingredient): void {
-    // this.ingredientToEdit = _.clone(ingredient);
-    // const name: string = this.ingredientToEdit.name;
-    // this.editionMode = true;
-    // this.editOrAddModal.show();
-  }
-
-  editIngredient(ingredient: Ingredient): void {
-    this.fridgeService.editIngredient(ingredient);
-    this.editionMode = false;
-    // this.editOrAddModal.hide();
+    this.navCtrl.push(EditIngredientPage, {ingredient:ingredient, type:"edit"});
   }
 
   getIngredients(): Ingredient[] {
@@ -70,13 +56,6 @@ export class FridgePage implements OnInit {
   prepareForAddIngredient(): void {
     this.ingredientToEdit = {id: 0, name: '', quantity: 0, unity: '', peremptionDate: new Date()};
     this.creationMode = true;
-    // this.editOrAddModal.show();
-  }
-
-  addIngredient(ingredient: Ingredient): void {
-    this.fridgeService.addIngredient(ingredient);
-    this.creationMode = false;
-    // this.editOrAddModal.hide();
   }
 
   // permet de savoir si un ingredient est périmé

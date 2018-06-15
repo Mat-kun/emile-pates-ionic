@@ -1,0 +1,41 @@
+<!--
+  Generated template for the EditIngredientPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>editIngredient</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <ion-grid>
+        <ion-row>
+          <ion-col col-12>
+              <form>
+                  <ion-item>
+                    <ion-label>Nom :</ion-label>
+                    <ion-input type="text" [(ngModel)]="ingredientToEdit.name" name="name" placeholder="nom de l'ingredient"></ion-input>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label>Quantité</ion-label>
+                    <ion-input [(ngModel)]="ingredientToEdit.quantity" name="quantity" placeholder="quantité de l'ingredient"></ion-input>
+                  </ion-item>
+                  <ion-item>
+                      <ion-label>Unité</ion-label>
+                      <ion-input [(ngModel)]="ingredientToEdit.unity" name="unity" placeholder="unité de la quantité"></ion-input>
+                    </ion-item>
+                    <ion-col col-3 offset-2>
+                        <button padding ion-button color="light" type="button" (click)="cancel()">Annuler</button>
+                        <button padding ion-button type="button"  (click)="register()">Enregistrer</button>
+                    </ion-col>
+                </form>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+</ion-content>
