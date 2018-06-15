@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>shopping-list</ion-title>
+    <ion-title>Mes listes de courses</ion-title>
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -49,7 +49,7 @@
             </table>
       </div> -->
   <ion-list>
-    <button ion-item *ngFor="let shoppingList of this.myShoppingsList" (click)="prepareForEditShoppingList(shoppingList);" (swipe)="deleteShoppingList(shoppingList);">
+    <button ion-item *ngFor="let shoppingList of this.myShoppingsList" (click)="editShoppingList(shoppingList);" (swipe)="deleteShoppingList(shoppingList);">
       {{shoppingList.name}}
     </button>
   </ion-list>

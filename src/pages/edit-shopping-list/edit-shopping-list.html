@@ -7,12 +7,38 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>edit-shopping-list</ion-title>
+    <ion-title>{{shoppingListToEdit.name}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+    <div *ngIf="shoppingListToEdit">
+        <div (click)="addIngredient()" class="action"><i class="glyphicon glyphicon-plus"></i>Ajouter un nouvel ingredient</div>
+        <input type="text" class="form-control" [(ngModel)]="shoppingListToEdit.name"/>
+        <table class="table table-striped">
+            <thead>
+              <tr>
+                <td></td>
+                <th>Ingredients</th>
+                <th>Quantité</th>
+                <th>Unité</th>
+                <td></td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let ingredient of this.shoppingListToEdit.ingredientList">
+                <td>
+                    <input type="checkbox" class="custom-control-input" (change)="selectIngredient($event, ingredient)">
+                </td>
+                <td>{{ingredient.name}}</td>
+                <td>{{ingredient.quantity}}</td>
+                <td>{{ingredient.unity | uppercase}}</td>
+                <td (click)="deleteIngredient(ingredient)"><i class="glyphicon glyphicon-trash"></i></td>
+              </tr>
+            </tbody>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#confirmModal" (click)="validate()">Valider</button>
+          </table>
+    </div>
 </ion-content>
