@@ -30,19 +30,19 @@
                 </ion-item>
                   <ion-item>
                       <ion-label>Matin : {{meal && meal.breakfast ? meal.breakfast.name : ''}}</ion-label>
-                      <ion-select [(ngModel)]="meal.breakfast" name="breakfast">
+                      <ion-select [(ngModel)]="meal.breakfast" name="breakfast" selectedText=" ">
                           <ion-option *ngFor="let recipe of recipesList" [value]="recipe">{{recipe.name}}</ion-option>
                         </ion-select>
                   </ion-item>
                   <ion-item>
                       <ion-label>Midi : {{meal && meal.lunch ? meal.lunch.name : ''}}</ion-label>
-                      <ion-select [(ngModel)]="meal.lunch" name="lunch">
+                      <ion-select [(ngModel)]="meal.lunch" name="lunch" selectedText=" ">
                           <ion-option *ngFor="let recipe of recipesList" [value]="recipe">{{recipe.name}}</ion-option>
                         </ion-select>
                   </ion-item>
                   <ion-item>
                       <ion-label>Soir : {{meal && meal.dinner ? meal.dinner.name : ''}}</ion-label>
-                      <ion-select [(ngModel)]="meal.dinner" name="dinner">
+                      <ion-select [(ngModel)]="meal.dinner" name="dinner" selectedText=" ">
                           <ion-option *ngFor="let recipe of recipesList" [value]="recipe">{{recipe.name}}</ion-option>
                         </ion-select>
                   </ion-item>
