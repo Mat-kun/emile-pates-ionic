@@ -8,6 +8,7 @@ import { ShoppingListService } from '../../services/implementations/shopping-lis
 import { Ingredient} from '../../models/ingredient';
 import { ShoppingList } from '../../models/shopping-list';
 import { PlanningPage } from '../planning/planning';
+import { ShoppingListPage } from '../shopping-list/shopping-list';
 
 /**
  * Generated class for the EditPlanningPage page.
@@ -119,7 +120,7 @@ export class EditPlanningPage implements OnInit {
     shoppingList.ingredientList = shoppingListIngredients;
     // une fois l'operation effectué on peut ajouter a la liste de courses notre liste d'ingredients.
     this.shoppingListService.addShoppingList(shoppingList);
-    this.navCtrl.pop();
+    this.navCtrl.setRoot(ShoppingListPage);
   }
 
   compareMeal(meal1 : any, meal2: any) {
