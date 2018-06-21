@@ -7,6 +7,7 @@ import { PlanningService } from '../../services/implementations/planning.service
 import { ShoppingListService } from '../../services/implementations/shopping-list.service';
 import { Ingredient} from '../../models/ingredient';
 import { ShoppingList } from '../../models/shopping-list';
+import { PlanningPage } from '../planning/planning';
 
 /**
  * Generated class for the EditPlanningPage page.
@@ -57,7 +58,7 @@ export class EditPlanningPage implements OnInit {
     }else{
       this.planningService.addPlanning(planning);
     }
-    this.navCtrl.pop();
+    this.navCtrl.setRoot(PlanningPage);
   }
 
   // creer la liste de courses du planning selectionné
@@ -119,5 +120,9 @@ export class EditPlanningPage implements OnInit {
     // une fois l'operation effectué on peut ajouter a la liste de courses notre liste d'ingredients.
     this.shoppingListService.addShoppingList(shoppingList);
     this.navCtrl.pop();
+  }
+
+  compareMeal(meal1 : any, meal2: any) {
+    return meal1 && meal2 ? meal1.name === meal2.name : meal1 === meal2;
   }
 }
