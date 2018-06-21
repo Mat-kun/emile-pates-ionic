@@ -62,6 +62,7 @@ export class EditShoppingListPage implements OnInit {
 
   addIngredientsToFridge(): void {
     for (let i = 0; i < this.ingredientsToAdd.length; i++) {
+      this.ingredientsToAdd[i].peremptionDate = new Date();
       this.fridgeService.addIngredient(this.ingredientsToAdd[i]);
       this.shoppingListToEdit.ingredientList.splice(this.shoppingListToEdit.ingredientList.indexOf(this.ingredientsToAdd[i]), 1);
     }
@@ -70,6 +71,7 @@ export class EditShoppingListPage implements OnInit {
 
   addAllIngredientsToFridge(): void {
     for (let i = 0; i < this.shoppingListToEdit.ingredientList.length; i++) {
+      this.shoppingListToEdit.ingredientList[i].peremptionDate = new Date();
       this.fridgeService.addIngredient(this.shoppingListToEdit.ingredientList[i]);
     }
     this.shoppingListService.removeShoppingList(this.shoppingListToEdit);
